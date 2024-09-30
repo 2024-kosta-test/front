@@ -6,3 +6,8 @@ services:
     container_name: front-container
     ports:
       - "80:80" # ["80:80"]
+      - "443:443"
+    volumes:
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf
+      - /etc/letsencrypt/archive/costcook.shop/fullchain1.pem:/etc/ssl/certs/fullchain.pem:ro # ro:읽기전용
+      - /etc/letsencrypt/archive/costcook.shop/privkey1.pem:/etc/ssl/private/privkey.pem:ro

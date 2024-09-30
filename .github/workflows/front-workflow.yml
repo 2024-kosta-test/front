@@ -1,0 +1,26 @@
+name: FRONT-WORKFLOW
+on:
+  push:
+    branches: [ "main" ]
+jobs:
+  front-job:
+    runs-on: ubuntu-latest
+    steps:
+      - name: SSH
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.KEY }}
+          script: |
+            set -e
+            cd front
+            echo -e "REACT_APP_REST_SERVER=${{ secrets.REST_SERVER }}" >> .env
+            echo -e "REACT_APP_GOOGLE_ID=${{ secrets.GOOGLE_ID }}" >> .env
+            echo -e "REACT_APP_GOOGLE_REDIRECT_URI=${{ secrets.GOOGLE_REDIRECT_URI }}" >> .env
+            echo -e "REACT_APP_KAKAO_ID=${{ secrets.KAKAO_ID }}" >> .env
+            echo -e "REACT_APP_KAKAO_REDIRECT_URI=${{ secrets.KAKAO_REDIRECT_URI }}" >> .env
+
+            git_output=$(sudo git pull origin main 2>&1)
+
+            docker compose up -d --build

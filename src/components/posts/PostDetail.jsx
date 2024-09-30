@@ -85,7 +85,7 @@ const PostDetail = () => {
                     {
                         post.image && <CardMedia
                             component="img"
-                            image={`${process.env.REACT_APP_SERVER}/img/${post.image.saved}`}
+                            image={`${process.env.REACT_APP_REST_SERVER}/img/${post.image.saved}`}
                             alt="게시글 이미지"
                         />
                     }

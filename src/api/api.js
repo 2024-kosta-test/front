@@ -47,10 +47,11 @@ api.interceptors.response.use(
                 }
             } catch (error) {
                 console.log("토큰 재발급 실패");
-                return Promise.reject(err);
+                // 토큰 재발급 실패시 로그아웃
+                removeCookie("accessToken");
+                window.location.href = "/login";
             }
         }
-        removeCookie("accessToken");
         return Promise.reject(err);
     }
 );

@@ -1,0 +1,8 @@
+version: '3'
+services:
+  front:
+    build:
+      context: .
+    container_name: front-container
+    ports:
+      - "80:80" # ["80:80"]
